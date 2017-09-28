@@ -2,17 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta name="format-detection" content="telephone=no"/>
     <title>Title</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #e9e5f6;
+        }
+        a {
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        img {
+            vertical-align: middle
+        }
+
         .header{
-            height: 2rem;;
-            background-color: red;
+            height:3.75rem;
+            width: 100%;
+            background: url(image/topbjI_icon.png) no-repeat;
+            background-size: 100% 100%;
+            padding-top: 2rem;
+        }
+        .header div{
+            text-align: center;
+            height: 1rem;
+        }
+        .header div img{
+            height: 0.38rem;
+            width: 0.38rem;
+            margin-top: -0.08rem;
+        }
+        .header div{;
+            font-size: 0.28rem;
         }
     </style>
 </head>
 <body>
-<div class="header" id="xx">
-
+<div class="header">
+    <div>
+        <img src="image/sqyibi_icon.png" alt="">
+        冼村街卫生服务中心
+    </div>
 </div>
 <script>
     (function (doc, win) {
@@ -27,7 +67,6 @@
                     docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
                 }
             };
-
         if (!doc.addEventListener) return;
         win.addEventListener(resizeEvt, recalc, false);
         doc.addEventListener('DOMContentLoaded', recalc, false);
