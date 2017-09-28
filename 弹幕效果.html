@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹幕效果</title>
+    <style>
+        html,body{
+            height:100%;
+            width:100%;
+            padding:0;
+            margin:0;
+            overflow:hidden;
+        }
+        .bg{
+            height:100%;
+            width:100%;
+            background:url(http://www.zxhuan.com/wp-content/uploads/2016/03/index-bg.jpg) no-repeat 100%;
+            background-size:100%;
+        }
+        .mask{
+            height:100%;
+            width:100%;
+            position:absolute;
+            left:0;
+            top:0;
+            background:rgba(0,0,0,0.3);
+        }
+        .bottom-content{
+            height:70px;
+            width:100%;
+            position:absolute;
+            bottom:0;
+            right:0;
+            background:rgba(0,0,0,0.4);
+        }
+        .bottom-content #input{
+            height:50px;
+            width:500px;
+            float:right;
+            background:white;
+            border:none;
+            margin:10px 20px 0 0;
+        }
+        .bottom-content #btn{
+            margin:10px 20px 0 0;
+            height:50px;
+            width:100px;
+            text-align:center;
+            background:white;
+            border:none;
+            float:right;
+            color:black;
+            font-family:"Microsoft YaHei";
+        }
+        #header{
+            height: 200px;
+            width: 100%;
+        }
+        .text{
+            font-family:"Microsoft YaHei";
+            font-size:20px;
+            font-weight:bold;
+            display:inline-block;
+            position:absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="mask">
+    <div id="header">
+    </div>
+    <div class="bottom-content">
+        <input type="button" value="发表说所" name="btn" id="btn">
+        <input type="text" value='' name='text' id='input'>
+    </div>
+</div>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script>
+    var newTime="";//初始化时间戳
+    $("#btn").on('click',function(){
+        //设置时间间隔为500ms才能再次点击发表按钮
+        if(new Date()-newTime>500){
+//            console.log(new Date()-newTime);
+            var value=$('#input').val();
+            var oDiv=$('<span>').addClass('text').html(value);
+            oDiv.css({
+                "color":getRandomColor()
+            });
+            $("#header").append(oDiv);
+            animate();
+
+        }
+    })
+    function animate(){
+        var top=0;
+        $("#header").find($('.text')).show().each(function(){
+            var textW=$(this).width();
+            var clientW=$(window).width();
+            var clientH=$("#header").height();
+            var speed=[5000,6000,7000,8000,9000,10000];//设置时间----speed[random]获取随机时间
+            var random=Math.floor(Math.random()*speed.length);//获取随机数
+            top=top+45;
+            if(top>clientH){
+                top=0;
+            }
+            // console.log(textW);
+            $(this).css({
+                "left":clientW-textW+'px',
+                "top":top+'px'
+            }).animate({
+                'left':"-"+textW+'px'
+            }, speed[random],function(){
+                $(this).remove();
+            })
+        })
+        newTime=new Date();//获取最新的时间戳
+    }
+    //获取随机颜色
+    var getRandomColor = function(){
+        return '#'+(function(h){
+                return new Array(7-h.length).join("0")+h
+            })((Math.random()*0x1000000<<0).toString(16))
+    }
+</script>
+</body>
+</html>
